@@ -1,0 +1,50 @@
+/* Make the form background black and style inputs */
+.add-note-form {
+  background: #181818;
+  color: #fff;
+  border-radius: 12px;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  min-width: 320px;
+  max-width: 400px;
+}
+
+.add-note-form input.form-control,
+.add-note-form textarea.form-control {
+  background: #232323;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.add-note-form input.form-control:focus,
+.add-note-form textarea.form-control:focus {
+  background: #232323;
+  color: #fff;
+  border-color: #28a745;
+  box-shadow: none;
+}
+
+/* Optional: style the Save button */
+.add-note-form .btn-success {
+  background: #28a745;
+  border: none;
+  font-weight: 500;
+}
+
+.add-note-form .btn-success:hover {
+  background: #218838;
+}
+
+/* Center the popup in the middle of the screen */
+.add-note-form-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(0,0,0,0.7) !important;
+  z-index: 1050 !important;
+}
