@@ -1,0 +1,8 @@
+.note-mini-card {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.note-mini-card:hover {
+  transform: scale(1.02);
+}
