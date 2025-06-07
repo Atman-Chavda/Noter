@@ -5,26 +5,18 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-category-card',
-  imports: [NoteMiniCardComponent, AddNoteFormComponent, CommonModule],
+  imports: [NoteMiniCardComponent, CommonModule, AddNoteFormComponent],
   templateUrl: './category-card.component.html',
   styleUrl: './category-card.component.css'
 })
 export class CategoryCardComponent {
-  openFormIdx: number | null = null;
 
-  AddNote(idx: number) {
-    this.openFormIdx = idx;
-  }
-
-  closeForm() {
-    this.openFormIdx = null;
-  }
-
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    if (target.closest('.add-note-form-container') === null && target.closest('.add-note-btn') === null) {
-      this.closeForm();
-    }
+  showForm: boolean = false;
+  categoryId: number|null = null;
+  addNote(id: number)
+  {
+    console.log("Adding note to category with id: " + id);
+    this.categoryId = id;
+    this.showForm = !this.showForm;
   }
 }

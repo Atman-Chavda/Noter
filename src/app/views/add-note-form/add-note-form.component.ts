@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-add-note-form',
@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './add-note-form.component.css'
 })
 export class AddNoteFormComponent {
+
+  @Input() categoryId: number|null = null;
 
 }

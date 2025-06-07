@@ -1,4 +1,4 @@
-<div class="row ms-1 mt-4">
+<div class="row m-1 mt-4">
   <ng-container *ngFor="let i of [1,2,3,4]; let idx = index">
     <div class="col-md-3 mb-4">
       <div class="card bg-black border-light text-white h-100 position-relative">
@@ -14,20 +14,18 @@
         <div class="card-footer text-center">
           <button 
             class="btn btn-outline-light w-100 add-note-btn" 
-            (click)="AddNote(idx); $event.stopPropagation();">
+            (click)="addNote(idx)">
+            
             + Add Note
           </button>
-        </div>
-
-        <div 
-          *ngIf="openFormIdx === idx" 
-          class="add-note-form-container"
-          (click)="$event.stopPropagation()">
-          <div (click)="$event.stopPropagation()">
-            <app-add-note-form></app-add-note-form>
-          </div>
         </div>
       </div>
     </div>
   </ng-container>
 </div>
+
+@if(showForm)
+{
+  <app-add-note-form [categoryId]="categoryId"></app-add-note-form>
+}
+

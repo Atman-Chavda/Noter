@@ -1,4 +1,11 @@
-<div class="note-card p-3 rounded bg-black">
-  <h6 class="fw-bold mb-2">Note Title</h6>
+<div class="note-card p-3 rounded bg-black" (click)="showNote()">
+  <div class="row">
+    <h6 class="fw-bold mb-2 col-8">Note Title</h6>
+    <app-priority-badge class="col-4"></app-priority-badge>
+  </div>
   <p class="mb-0 small">Note preview text here...</p>
 </div>
+
+@if(showFullNote) {
+  <app-note-modal [noteTitle]="'this is the title'" [noteContent]="'this is the content'"></app-note-modal>
+}

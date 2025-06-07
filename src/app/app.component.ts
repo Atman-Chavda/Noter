@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { LayoutComponent } from "./views/layout/layout.component";
 import { CategoryCardComponent } from "./views/category-card/category-card.component";
 
 @Component({

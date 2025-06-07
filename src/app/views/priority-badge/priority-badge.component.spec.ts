@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LayoutComponent } from './layout.component';
+import { PriorityBadgeComponent } from './priority-badge.component';
 
-describe('LayoutComponent', () => {
-  let component: LayoutComponent;
-  let fixture: ComponentFixture<LayoutComponent>;
+describe('PriorityBadgeComponent', () => {
+  let component: PriorityBadgeComponent;
+  let fixture: ComponentFixture<PriorityBadgeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LayoutComponent]
+      imports: [PriorityBadgeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LayoutComponent);
+    fixture = TestBed.createComponent(PriorityBadgeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
