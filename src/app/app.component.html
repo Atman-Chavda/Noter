@@ -1,12 +1,20 @@
-<div class="container-fluid bg-dark text-white py-4 min-vh-100">
-  <div class="d-flex justify-content-between align-items-center mb-4 px-4">
-    <h3 class="mb-0">My Notes</h3>
-    <button class="btn btn-light">+ Add Category</button>
+<div class="container-fluid bg-black text-white py-4 min-vh-100">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="">My Notes</h3>
+    <button class="btn bi bi-patch-plus btn-light" (click)="addCategory()">
+      Add Category
+    </button>
   </div>
+  <hr />
+  <app-category-card></app-category-card>
+  <button
+    class="bi bi-patch-plus btn border-bottom-dashed"
+    (click)="addCategory()"
+  >
+    add Category
+  </button>
+  @if(showAddCategoryForm) {
 
-  <div class="row gx-4 px-4">
-    <app-category-card></app-category-card>
-    <app-category-card></app-category-card>
-    <app-category-card></app-category-card>
-  </div>
+  <app-add-category-form (closeform)="closeForm($event)"></app-add-category-form>
+  }
 </div>

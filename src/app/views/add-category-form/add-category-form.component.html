@@ -1,0 +1,28 @@
+<!-- Overlay Background -->
+<div class="overlay">
+  <!-- Centered Form -->
+  <div class="modal-form bg-black rounded p-4 rounded-3 border border-secondary text-white">
+    <div>
+      <h5 class="fw-bold mb-4">Add Category</h5>
+    </div>
+
+    <label for="note-title" class="form-label">Title</label>
+    <input
+      type="text"
+      id="note-title"
+      class="form-control mb-3 bg-black text-white border-secondary"
+      placeholder="Enter category title"
+    />
+
+    <!-- Button Container -->
+    <div class="d-flex justify-content-end gap-2">
+      <button
+        class="btn text-white cancel-btn"
+        (click)="closeForm()"
+      >
+        Cancel
+      </button>
+      <button class="btn border-bottom-dashed">Add Note</button>
+    </div>
+  </div>
+</div>

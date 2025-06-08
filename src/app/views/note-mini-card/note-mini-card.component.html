@@ -1,4 +1,12 @@
-<div class="mb-3 p-3 border rounded" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#noteModal">
-  <h6 class="fw-bold mb-1">Note Title</h6>
-  <p class="mb-0 text-muted">Note preview text here...</p>
+<div class="note-card rounded bg-black border border-secondary" (click)="showNote()">
+  <div class="row p-3">
+    <h6 class="fw-bold mb-2 col-8 fs-5">Note Title</h6>
+    <app-priority-badge class="col-4"></app-priority-badge>
+    <hr class="mb-6 mt-0">
+    <p class="mb-0 text-truncate">Note preview text herethi should just Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis perferendis nulla labore eveniet maxime dolore itaque, dicta cumque deleniti praesentium blanditiis laboriosam quod deserunt non exercitationem neque placeat facere eius rerum excepturi!</p>
+  </div>
 </div>
+
+@if(showFullNote) {
+  <app-note-modal [noteTitle]="'this is the title'" [noteContent]="'this is the content'"></app-note-modal>
+}

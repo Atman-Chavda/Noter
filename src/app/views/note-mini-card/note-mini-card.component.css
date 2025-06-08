@@ -1,8 +1,10 @@
-.note-mini-card {
-  cursor: pointer;
-  transition: transform 0.2s ease;
+.note-card {
+  background-color: #1c1c1c;
+  border: 1px solid #555;
+  transition: background-color 0.2s ease;
 }
 
-.note-mini-card:hover {
-  transform: scale(1.02);
+.note-card:hover {
+  background-color: #2a2a2a;
+  cursor: pointer;
 }

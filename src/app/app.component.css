@@ -1,0 +1,9 @@
+.border-bottom-dashed {
+  border: 1px dashed #dee2e6; /* Light gray, Bootstrap-like */
+  color: white;
+}
+
+.border-bottom-dashed:hover {
+  background: white;
+    color: black; /* Change text color on hover */
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-add-note-form',
@@ -8,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AddNoteFormComponent {
 
+  @Input() categoryId: number|null = null;
+  @Input() categoryName: string|null = null;
+  @Output() closeform = new EventEmitter<boolean>();
+
+  closeForm() {
+    this.closeform.emit(false);
+  }
 }
