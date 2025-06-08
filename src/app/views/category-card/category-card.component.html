@@ -1,7 +1,7 @@
-<div class="row m-1 mt-4">
-  <ng-container *ngFor="let i of [1,2,3,4]; let idx = index">
-    <div class="col-md-3 mb-4">
-      <div class="card bg-black border-light text-white h-100 position-relative">
+<div class="row mt-4">
+  <ng-container *ngFor="let i of [1,2,3,4,5]; let idx = index">
+    <div class="col-3 mb-4">
+      <div class="card bg-black border border-secondary  text-white h-100 position-relative ">
         <div class="card-header">
           <h5 class="mb-0">Category Name {{ idx + 1 }}</h5>
         </div>
@@ -13,8 +13,8 @@
 
         <div class="card-footer text-center">
           <button 
-            class="btn btn-outline-light w-100 add-note-btn" 
-            (click)="addNote(idx)">
+            class="btn btn-outline-secondary text-white w-100 add-note-btn" 
+            (click)="addNote(idx, `categoty Name  ${idx}`)">
             
             + Add Note
           </button>
@@ -24,8 +24,9 @@
   </ng-container>
 </div>
 
+
 @if(showForm)
 {
-  <app-add-note-form [categoryId]="categoryId"></app-add-note-form>
+  <app-add-note-form [categoryId]="categoryId" [categoryName]="categotyName" (closeform)="closeForm($event)"></app-add-note-form>
 }
 

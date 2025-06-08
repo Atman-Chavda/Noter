@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-add-category-form',
@@ -8,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AddCategoryFormComponent {
 
+  @Output() closeform = new EventEmitter<boolean>();
+
+  closeForm() {
+    this.closeform.emit(false);
+  }
 }

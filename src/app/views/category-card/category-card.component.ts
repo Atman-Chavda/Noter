@@ -13,10 +13,20 @@ export class CategoryCardComponent {
 
   showForm: boolean = false;
   categoryId: number|null = null;
-  addNote(id: number)
+  categotyName: string|null = null;
+
+  addNote(id: number, name:string)
   {
     console.log("Adding note to category with id: " + id);
     this.categoryId = id;
     this.showForm = !this.showForm;
+    this.categotyName = name;
+  }
+
+  closeForm(event: boolean) {
+    console.log("Closing form");
+    this.showForm = event;
+    this.categoryId = null;
+    this.categotyName = null;
   }
 }

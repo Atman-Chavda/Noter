@@ -1,7 +1,44 @@
-<div>
-  <label for="note-title">Title</label>
-  <input type="text" name="" id="note-title">
-  <label for="note body">Content</label>
-  <input type="text" name ="" id="note-body">
-  <button class="btn btn-primary">Save</button>
+<!-- Overlay Background -->
+<div class="overlay">
+  <!-- Centered Form -->
+  <div class="modal-form bg-black rounded p-4 rounded-3 border border-secondary text-white">
+    <div>
+      <h5 class="fw-bold mb-4">Add Note to {{ categoryName }}</h5>
+    </div>
+
+    <label for="note-title" class="form-label">Title</label>
+    <input
+      type="text"
+      id="note-title"
+      class="form-control mb-3 bg-black text-white border-secondary"
+      placeholder="Enter note title"
+    />
+
+    <label for="note-body" class="form-label">Content</label>
+    <textarea
+      id="note-body"
+      class="form-control mb-3 bg-black text-white border-secondary"
+      rows="3"
+      placeholder="Enter note content"
+    ></textarea>
+
+    <label for="priority" class="form-label w-100">Select Priority</label>
+    <select name="" id="priority" class="form-select mb-3 bg-black text-white border-secondary">
+    <option value="" selected>Select Priority</option>
+      <option value="">High</option>
+      <option value="">Mid</option>
+      <option value="">Normal</option>
+    </select>
+
+    <!-- Button Container -->
+    <div class="d-flex justify-content-end gap-2">
+      <button
+        class="btn text-white cancel-btn"
+        (click)="closeForm()"
+      >
+        Cancel
+      </button>
+      <button class="btn border-bottom-dashed">Add Note</button>
+    </div>
+  </div>
 </div>
