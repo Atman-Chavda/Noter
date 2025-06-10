@@ -15,6 +15,10 @@
   </button>
   @if(showAddCategoryForm) {
 
-  <app-add-category-form (closeform)="closeForm($event)"></app-add-category-form>
+  <app-add-category-form
+    (closeform)="closeForm($event)"
+    (addCategory)="handleCategoryAdded($event)"
+    (categoryAddedSuccess)="showSuccessAlert($event)"
+  ></app-add-category-form>
   }
 </div>
