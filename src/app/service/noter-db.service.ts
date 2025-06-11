@@ -23,11 +23,19 @@ export class NoterDbService extends Dexie {
 
   async addCategoty(name:string)
   {
-    const newCategory: Category = {
-      id: uuidv4(),
-      name: name,
+    try
+    {
+      const newCategory: Category = {
+        id: uuidv4(),
+        name: name,
+      }
+      await this.categories.add(newCategory);
+      return true;
     }
-    await this.categories.add(newCategory);
+    catch (error) {
+      console.error('Error adding category:', error);
+      return false;
+    }
   }
 
   async addNote(categoryId: string, title: string, content: string) {
@@ -39,6 +47,11 @@ export class NoterDbService extends Dexie {
       createdAt: new Date(),
     };
     await this.notes.add(newNote);
+  }
+
+  async getAllCategoties(): Promise<Category[]>
+  {
+    return await this.categories.toArray();
   }
 
 }

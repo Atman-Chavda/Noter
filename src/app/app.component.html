@@ -6,7 +6,7 @@
     </button>
   </div>
   <hr />
-  <app-category-card></app-category-card>
+  <app-category-card [categories] = "viewCategories"></app-category-card>
   <button
     class="bi bi-patch-plus btn border-bottom-dashed"
     (click)="addCategory()"
@@ -18,7 +18,6 @@
   <app-add-category-form
     (closeform)="closeForm($event)"
     (addCategory)="handleCategoryAdded($event)"
-    (categoryAddedSuccess)="showSuccessAlert($event)"
   ></app-add-category-form>
   }
 </div>

@@ -14,7 +14,6 @@ export class AddCategoryFormComponent {
 
   @Output() closeform = new EventEmitter<boolean>(); // true or false, optional use
   @Output() addCategory = new EventEmitter<string>();
-  @Output() categoryAddedSuccess = new EventEmitter<boolean>(); // ✅ new output for success
 
   closeFormHandler(status: boolean = false) {
     this.closeform.emit(status);
@@ -28,9 +27,8 @@ export class AddCategoryFormComponent {
       this.closeFormHandler(false);
       return;
     }
-
+    
     this.addCategory.emit(trimmed);
-    this.categoryAddedSuccess.emit(true); // ✅ emit success
     this.categoryName = '';
     this.closeFormHandler(); // just closes form
   }

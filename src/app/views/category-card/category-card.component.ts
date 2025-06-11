@@ -1,7 +1,8 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { NoteMiniCardComponent } from "../note-mini-card/note-mini-card.component";
 import { AddNoteFormComponent } from "../add-note-form/add-note-form.component";
 import { CommonModule } from '@angular/common';
+import { Category } from '../../models/interfaces';
 
 @Component({
   selector: 'app-category-card',
@@ -14,6 +15,8 @@ export class CategoryCardComponent {
   showForm: boolean = false;
   categoryId: number|null = null;
   categotyName: string|null = null;
+
+  @Input() categories:Category[] = [];  
 
   addNote(id: number, name:string)
   {
