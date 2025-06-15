@@ -26,7 +26,8 @@
 }
 
 .border-bottom-dashed:hover {
-  background-color: rgb(164, 164, 164); 
+  background-color: white;
+  color: black
 }
 
 .cancel-btn{
@@ -34,7 +35,7 @@
 }
 
 .cancel-btn:hover{
-  background: #8a8a8a93;
+  background-color: #8a8a8a93;
 }
 
 ::placeholder {

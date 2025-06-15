@@ -1,21 +1,23 @@
 <div class="row mt-4">
-  <ng-container *ngFor="let category of categories; let idx = index">
+  <ng-container *ngFor="let category of categories">
     <div class="col-3 mb-4">
-      <div class="card bg-black border border-secondary text-white h-100 position-relative">
+      <div class="card bg-black border border-secondary text-white position-relative">
         <div class="card-header">
           <h5 class="mb-0">{{ category.name }}</h5>
         </div>
 
         <div class="card-body bg-black">
-          <!-- Later: Display notes here -->
-          <app-note-mini-card></app-note-mini-card>
-          <app-note-mini-card></app-note-mini-card>
+          <app-note-mini-card
+            *ngFor="let note of notesMap[category.id] || []"
+            [note]="note"
+          ></app-note-mini-card>
         </div>
 
         <div class="card-footer text-center">
-          <button 
-            class="btn btn-outline-secondary text-white w-100 add-note-btn"
-            (click)="addNote(idx, category.name)">
+          <button
+            class="btn btn-outline-secondary w-100 add-note-btn"
+            (click)="addNote(category.id, category.name)"
+          >
             + Add Note
           </button>
         </div>
@@ -24,10 +26,13 @@
   </ng-container>
 </div>
 
+<!-- Add your add-note form here if needed -->
+
+
 @if (showForm) {
-  <app-add-note-form 
-    [categoryId]="categoryId" 
-    [categoryName]="categotyName" 
-    (closeform)="closeForm($event)">
-  </app-add-note-form>
+  <app-add-note-form
+    [categoryId]="categoryId"
+    [categoryName]="categotyName"
+    (closeform)="closeForm($event)"
+  ></app-add-note-form>
 }

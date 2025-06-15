@@ -1,35 +1,53 @@
-import { Component, HostListener, Input } from '@angular/core';
-import { NoteMiniCardComponent } from "../note-mini-card/note-mini-card.component";
-import { AddNoteFormComponent } from "../add-note-form/add-note-form.component";
+import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { NoteMiniCardComponent } from '../note-mini-card/note-mini-card.component';
+import { AddNoteFormComponent } from '../add-note-form/add-note-form.component';
 import { CommonModule } from '@angular/common';
-import { Category } from '../../models/interfaces';
+import { Category, Note } from '../../models/interfaces';
+import { NoterDbService } from '../../service/noter-db.service';
 
 @Component({
   selector: 'app-category-card',
+  standalone: true,
   imports: [NoteMiniCardComponent, CommonModule, AddNoteFormComponent],
   templateUrl: './category-card.component.html',
   styleUrl: './category-card.component.css'
 })
-export class CategoryCardComponent {
+export class CategoryCardComponent implements OnChanges {
 
   showForm: boolean = false;
-  categoryId: number|null = null;
-  categotyName: string|null = null;
+  categoryId: string | null = null;
+  categotyName: string | null = null;
 
-  @Input() categories:Category[] = [];  
+  @Input() categories: Category[] = [];
 
-  addNote(id: number, name:string)
-  {
-    console.log("Adding note to category with id: " + id);
+  notesMap: { [categoryId: string]: Note[] } = {};
+
+  dbService = inject(NoterDbService);
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['categories'] && this.categories.length) {
+      this.fetchNotes();
+    }
+  }
+
+
+  async fetchNotes() {
+    for (const category of this.categories) {
+    this.notesMap[category.id] = await this.dbService.getNotesByCategoryId(category.id);
+  }
+  }
+
+  addNote(id: string, name: string) {
     this.categoryId = id;
-    this.showForm = !this.showForm;
     this.categotyName = name;
+    this.showForm = true;
   }
 
   closeForm(event: boolean) {
-    console.log("Closing form");
-    this.showForm = event;
+    this.showForm = false;
     this.categoryId = null;
     this.categotyName = null;
+    // Refresh notes after closing the form
+    this.fetchNotes();
   }
 }

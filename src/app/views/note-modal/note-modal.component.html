@@ -1,4 +1,19 @@
-<div>
-  <div>Title: {{noteTitle}}</div>
-  <div>Content: {{noteContent}}</div>
+<!-- Overlay Background -->
+<div class="overlay">
+  <!-- Centered Form -->
+  <div
+    class="modal-form bg-black rounded p-4 rounded-3 border border-secondary text-white"
+  >
+    <div>
+      <h5 class="fw-bold mb-4">Title: {{ note?.title }}</h5>
+    </div>
+
+    <!-- <div>Title: {{noteTitle}}</div> -->
+    <div>Content: {{ note?.content }}</div>
+
+    <button class="btn text-white cancel-btn mt-2 bi bi-x" (click)="closeFormHandler()">
+    </button>
+
+    <!-- Button Container -->
+  </div>
 </div>

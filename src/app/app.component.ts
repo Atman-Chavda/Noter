@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   async fetchCategpries()
   {
     this.viewCategories = await this.dbService.getAllCategoties();
-    console.log('Fetched categories:', this.viewCategories);
+    // console.log('Fetched categories:', this.viewCategories[0].id);
   }
 
   addCategory() {

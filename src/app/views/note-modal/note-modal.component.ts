@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Note } from '../../models/interfaces';
 
 @Component({
   selector: 'app-note-modal',
@@ -8,6 +9,10 @@ import { Component, Input } from '@angular/core';
 })
 export class NoteModalComponent {
 
-  @Input() noteTitle: string = '';
-  @Input() noteContent: string = '';
+  @Input() note:Note | null = null;
+  @Output() closeform = new EventEmitter<boolean>();
+
+  closeFormHandler(status: boolean = false) {
+    this.closeform.emit(status);
+  }
 }
