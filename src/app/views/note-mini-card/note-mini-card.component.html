@@ -1,4 +1,4 @@
-<div class="note-card mb-2 p-2 border border-secondary rounded bg-dark" (click)="showNote()">
+<div class="note-card mb-2 p-2 border border-secondary rounded" (click)="showNote()">
   <div class="d-flex justify-content-between align-items-start">
     <h6 class="mb-1">{{ note.title }}</h6>
     <!-- <app-priority-badge [priority]="note.priority"></app-priority-badge> -->
@@ -7,5 +7,5 @@
 </div>
 
 @if (showFullNote) {
-  <app-note-modal (closeform)="closeForm($event)" [note]="note"></app-note-modal>
+  <app-note-modal (closeform)="closeForm($event)" [note]="note" (noteDeleted)="handleNoteDeleted()"></app-note-modal>
 }

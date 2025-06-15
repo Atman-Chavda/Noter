@@ -3,10 +3,11 @@ import { CategoryCardComponent } from './views/category-card/category-card.compo
 import { AddCategoryFormComponent } from './views/add-category-form/add-category-form.component';
 import { NoterDbService } from './service/noter-db.service';
 import { Category } from './models/interfaces';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [CategoryCardComponent, AddCategoryFormComponent],
+  imports: [CategoryCardComponent, AddCategoryFormComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -15,11 +16,17 @@ export class AppComponent implements OnInit {
   title = 'Noter';
   showAddCategoryForm: boolean = false;
   viewCategories: Category[] = [];
+  menuOpen: boolean = false;
 
+  
   dbService = inject(NoterDbService);
   
   ngOnInit(): void {
     this.fetchCategpries();
+  }
+  
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 
   async fetchCategpries()
@@ -47,6 +54,17 @@ export class AppComponent implements OnInit {
     {
       alert('Failed to add category. Please try again.');
     }
+  }
+
+  deleteAll()
+  {
+    var confirmation = prompt('This action cannot be undone. To confirm type "DELETE-ALL" to confirm.');
+    this.menuOpen = false;
+    if(confirmation === 'DELETE-ALL')
+    {
+      this.dbService.deleteAll()
+    }
+    this.fetchCategpries();
   }
 
 }

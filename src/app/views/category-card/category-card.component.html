@@ -10,6 +10,7 @@
           <app-note-mini-card
             *ngFor="let note of notesMap[category.id] || []"
             [note]="note"
+            (noteDeleted)="fetchNotes()"
           ></app-note-mini-card>
         </div>
 

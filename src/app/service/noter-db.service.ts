@@ -65,4 +65,27 @@ export class NoterDbService extends Dexie {
   {
     return await this.notes.toArray();
   }
+
+  async deleteAll(): Promise<boolean>
+  {
+    try {
+      await this.categories.clear();
+      await this.notes.clear();
+      return true;
+    } catch (error) {
+      console.error('Error deleting all categories and notes:', error);
+      return false;
+    }
+  }
+
+  async deleteNote(noteId: string): Promise<boolean> {
+    try {
+      await this.notes.delete(noteId);
+      return true;
+    } catch (error) {
+      console.error('Error deleting note:', error);
+      return false;
+    }
+  }
+
 }

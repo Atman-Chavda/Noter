@@ -41,3 +41,18 @@
   color: #616161; /* Light gray or any color you prefer */
   opacity: 1; /* Prevents faded look in some browsers */
 }
+
+.bg-class
+{
+    background-color: #1c1c1c;
+}
+
+.delete-btn{
+  color: rgb(169, 10, 10);
+  font-weight: bold;
+}
+.delete-btn:hover
+{
+  background-color: rgb(126, 0, 0);
+  color: white;
+}

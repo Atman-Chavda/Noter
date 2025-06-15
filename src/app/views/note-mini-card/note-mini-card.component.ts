@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NoteModalComponent } from "../note-modal/note-modal.component";
 import { PriorityBadgeComponent } from "../priority-badge/priority-badge.component";
 import { Note } from '../../models/interfaces';
@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class NoteMiniCardComponent {
   showFullNote: boolean = false;
   @Input() note!: Note;
+  @Output() noteDeleted = new EventEmitter<void>();
 
   showNote()
   {
@@ -22,5 +23,9 @@ export class NoteMiniCardComponent {
   closeForm(status: boolean) {
     this.showFullNote = false;
   }
+
+  handleNoteDeleted() {
+  this.noteDeleted.emit(); // Bubble up to Category Card
+}
 
 }
