@@ -12,6 +12,7 @@
       id="note-title"
       class="form-control mb-3 bg-black text-white border-secondary"
       placeholder="Enter note title"
+      [(ngModel)] = 'title'
     />
 
     <label for="note-body" class="form-label">Content</label>
@@ -20,6 +21,7 @@
       class="form-control mb-3 bg-black text-white border-secondary"
       rows="3"
       placeholder="Enter note content"
+      [(ngModel)] = 'content'
     ></textarea>
 
     <label for="priority" class="form-label w-100">Select Priority</label>
@@ -38,7 +40,7 @@
       >
         Cancel
       </button>
-      <button class="btn border-bottom-dashed">Add Note</button>
+      <button class="btn border-bottom-dashed" (click)="handleCategoryAdded()">Add Note</button>
     </div>
   </div>
 </div>

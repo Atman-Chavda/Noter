@@ -5,3 +5,13 @@
   font-family: 'Lato', sans-serif;
 }
 
+.bg-class
+{
+    background-color: #1c1c1c;
+}
+
+.delete-btn:hover
+{
+  background-color: rgb(126, 0, 0);
+  color: white;
+}

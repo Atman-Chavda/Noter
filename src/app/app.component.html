@@ -1,20 +1,73 @@
-<div class="container-fluid bg-black text-white py-4 min-vh-100">
+<div
+  class="container-fluid bg-black text-white py-4 min-vh-100 position-relative"
+>
+  <!-- Header row -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3 class="">My Notes</h3>
+    <!-- Left: Title -->
+    <h3 class="mb-0">My Notes</h3>
+
+    <!-- Middle: Search bar + menu toggle -->
+    <div class="d-flex align-items-center position-relative">
+      <!-- Search Input -->
+      <div class="position-relative">
+        <input
+          type="text"
+          class="form-control ps-5 search text-white"
+          placeholder="Search Notes"
+        />
+        <i
+          class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3"
+        ></i>
+      </div>
+
+      <!-- Hamburger Icon -->
+      <i class="bi bi-list fs-3 ms-3 cursor-pointer" (click)="toggleMenu()"></i>
+
+      <!-- Custom Menu -->
+      <div
+        class="menu-box bg-class p-3 rounded shadow position-absolute"
+        *ngIf="menuOpen"
+        style="top: 110%; right: 0; z-index: 1051"
+      >
+        <button class="btn btn-outline-light w-100 mb-2">Export Data</button>
+        <button
+          class="btn btn-outline-light w-100 delete-all"
+          (click)="deleteAll()"
+        >
+          Delete All
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Add Category -->
     <button class="btn bi bi-patch-plus btn-light" (click)="addCategory()">
       Add Category
     </button>
   </div>
+
   <hr />
-  <app-category-card></app-category-card>
+
+  <app-category-card [categories]="viewCategories"></app-category-card>
+
   <button
     class="bi bi-patch-plus btn border-bottom-dashed"
     (click)="addCategory()"
   >
-    add Category
+    Add Category
   </button>
-  @if(showAddCategoryForm) {
 
-  <app-add-category-form (closeform)="closeForm($event)"></app-add-category-form>
+  @if (showAddCategoryForm) {
+  <app-add-category-form
+    (closeform)="closeForm($event)"
+    (addCategory)="handleCategoryAdded($event)"
+  ></app-add-category-form>
   }
+
+  <!-- Backdrop -->
+  <div
+    class="position-fixed top-0 start-0 w-100 h-100 bg-black bg-opacity-50"
+    *ngIf="menuOpen"
+    style="z-index: 1050"
+    (click)="toggleMenu()"
+  ></div>
 </div>

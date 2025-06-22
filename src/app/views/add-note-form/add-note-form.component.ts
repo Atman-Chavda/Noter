@@ -1,18 +1,37 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { NoterDbService } from '../../service/noter-db.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-note-form',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './add-note-form.component.html',
   styleUrl: './add-note-form.component.css'
 })
 export class AddNoteFormComponent {
 
-  @Input() categoryId: number|null = null;
+  @Input() categoryId: string|null = null;
   @Input() categoryName: string|null = null;
   @Output() closeform = new EventEmitter<boolean>();
+  title: string = ''
+  content: string =''
 
-  closeForm() {
-    this.closeform.emit(false);
+  dbService = inject(NoterDbService);
+
+  closeForm(status: boolean=false) {
+    this.closeform.emit(status);
+  }
+
+  async handleCategoryAdded()
+  {
+    var result = await this.dbService.addNote(this.categoryId!, this.title, this.content)
+    if(result)
+    {
+      this.closeForm(true); // Close the form after adding
+    }
+    else
+    {
+      this.closeForm(false); // Close the form with failure status
+    }
   }
 }

@@ -7,3 +7,31 @@
   background: white;
     color: black; /* Change text color on hover */
 }
+
+.search{
+  background-color: #1c1c1c;
+  border: 1px solid #555;
+  transition: background-color 0.2s ease;
+}
+
+.search::placeholder{
+  color: white;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.menu-box {
+  min-width: 180px;
+}
+
+.delete-all{
+  color: rgb(169, 10, 10);
+  font-weight: bold;
+}
+.delete-all:hover
+{
+  background-color: rgb(126, 0, 0);
+  color: white;
+}

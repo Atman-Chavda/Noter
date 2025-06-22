@@ -1,4 +1,31 @@
-<div>
-  <div>Title: {{noteTitle}}</div>
-  <div>Content: {{noteContent}}</div>
+<!-- Overlay Background -->
+<div class="overlay">
+  <!-- Centered Form -->
+  <div class="modal-form bg-black rounded p-4 rounded-3 border border-secondary text-white">
+    
+    <!-- Title Section -->
+    <div class="mb-3">
+      <div class="fw-bold fs-5">Title:</div>
+      <div class="ps-2">{{ note?.title }}</div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="mb-3">
+      <div class="fw-bold fs-5">Content:</div>
+      <div class="ps-2">{{ note?.content }}</div>
+    </div>
+
+    <!-- Buttons Row -->
+    <div class="row ms-0 mt-3">
+      <button
+        class="btn text-white cancel-btn mt-2 bi bi-x col-2"
+        (click)="closeFormHandler()"
+      ></button>
+      <button
+        class="btn text-white cancel-btn mt-2 bi bi-trash col-2 ms-2 delete-btn"
+        (click)="deleteNote(note!.id)"
+      ></button>
+    </div>
+
+  </div>
 </div>
