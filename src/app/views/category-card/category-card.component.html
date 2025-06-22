@@ -1,9 +1,17 @@
 <div class="row mt-4">
   <ng-container *ngFor="let category of categories">
     <div class="col-3 mb-4">
-      <div class="card bg-black border border-secondary text-white position-relative">
-        <div class="card-header">
+      <div
+        class="card bg-black border border-secondary text-white position-relative"
+      >
+        <div
+          class="card-header d-flex justify-content-between align-items-center mb-0"
+        >
           <h5 class="mb-0">{{ category.name }}</h5>
+          <button
+            class="btn text-white cancel-btn bi bi-trash delete-btn border border-secondary"
+            (click)="deleteCategory(category.id)"
+          ></button>
         </div>
 
         <div class="card-body bg-black">
@@ -29,11 +37,10 @@
 
 <!-- Add your add-note form here if needed -->
 
-
 @if (showForm) {
-  <app-add-note-form
-    [categoryId]="categoryId"
-    [categoryName]="categotyName"
-    (closeform)="closeForm($event)"
-  ></app-add-note-form>
+<app-add-note-form
+  [categoryId]="categoryId"
+  [categoryName]="categotyName"
+  (closeform)="closeForm($event)"
+></app-add-note-form>
 }

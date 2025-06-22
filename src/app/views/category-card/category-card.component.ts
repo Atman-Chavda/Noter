@@ -34,8 +34,7 @@ export class CategoryCardComponent implements OnChanges {
   async fetchNotes() {
     for (const category of this.categories) {
     this.notesMap[category.id] = await this.dbService.getNotesByCategoryId(category.id);
-  }
-  }
+  }}
 
   addNote(id: string, name: string) {
     this.categoryId = id;
@@ -50,4 +49,24 @@ export class CategoryCardComponent implements OnChanges {
     // Refresh notes after closing the form
     this.fetchNotes();
   }
+
+  deleteCategory(categoryId: string) 
+  {
+    var result = confirm('Are you sure you want to delete this note? This will also delete all notes in this category.');
+    if(result)
+    {
+      this.dbService.deleteCategory(categoryId).then(success =>
+      {
+        if(success)
+        {
+          this.categories = this.categories.filter(category => category.id !== categoryId);
+        }
+        else
+        {
+          alert('Error deleting category');
+        }
+      })
+    }
+  }
+
 }

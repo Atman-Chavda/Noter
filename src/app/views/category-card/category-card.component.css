@@ -55,3 +55,8 @@
   color: black;
 }
 
+.delete-btn:hover
+{
+  background-color: rgb(126, 0, 0);
+  color: white;
+}
