@@ -4,11 +4,12 @@ import { AddNoteFormComponent } from '../add-note-form/add-note-form.component';
 import { CommonModule } from '@angular/common';
 import { Category, Note } from '../../models/interfaces';
 import { NoterDbService } from '../../service/noter-db.service';
+import { SearchHighlighterPipe } from '../../pipes/search-highlighter.pipe';
 
 @Component({
   selector: 'app-category-card',
   standalone: true,
-  imports: [NoteMiniCardComponent, CommonModule, AddNoteFormComponent],
+  imports: [NoteMiniCardComponent, CommonModule, AddNoteFormComponent, SearchHighlighterPipe],
   templateUrl: './category-card.component.html',
   styleUrl: './category-card.component.css'
 })
@@ -19,6 +20,7 @@ export class CategoryCardComponent implements OnChanges {
   categotyName: string | null = null;
 
   @Input() categories: Category[] = [];
+  @Input() searchText: string = '';
 
   notesMap: { [categoryId: string]: Note[] } = {};
 

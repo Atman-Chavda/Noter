@@ -11,9 +11,12 @@
       <!-- Search Input -->
       <div class="position-relative">
         <input
+          #searchOnEsc
           type="text"
           class="form-control ps-5 search text-white"
-          placeholder="Search Notes"
+          placeholder="Press esc to start typing"
+          [(ngModel)]="searchText"
+          (input)="onSearchChange()"
         />
         <i
           class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3"
@@ -47,7 +50,7 @@
 
   <hr />
 
-  <app-category-card [categories]="viewCategories"></app-category-card>
+  <app-category-card [categories]="viewCategories" [searchText]="searchText"></app-category-card>
 
   <button
     class="bi bi-patch-plus btn border-bottom-dashed"

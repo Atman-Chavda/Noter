@@ -1,13 +1,16 @@
 <div class="row mt-4">
   <ng-container *ngFor="let category of categories">
-    <div class="col-3 mb-4">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
       <div
         class="card bg-black border border-secondary text-white position-relative"
       >
         <div
           class="card-header d-flex justify-content-between align-items-center mb-0"
         >
-          <h5 class="mb-0">{{ category.name }}</h5>
+          <h5
+            class="mb-0"
+            [innerHTML]="category.name | searchHighlighter : searchText"
+          ></h5>
           <button
             class="btn text-white cancel-btn bi bi-trash delete-btn border border-secondary"
             (click)="deleteCategory(category.id)"
@@ -19,6 +22,7 @@
             *ngFor="let note of notesMap[category.id] || []"
             [note]="note"
             (noteDeleted)="fetchNotes()"
+            [searchText]="searchText"
           ></app-note-mini-card>
         </div>
 

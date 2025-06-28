@@ -1,70 +1,107 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, OnInit, ViewChild } from '@angular/core';
 import { CategoryCardComponent } from './views/category-card/category-card.component';
 import { AddCategoryFormComponent } from './views/add-category-form/add-category-form.component';
 import { NoterDbService } from './service/noter-db.service';
-import { Category } from './models/interfaces';
+import { Category, Note } from './models/interfaces';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [CategoryCardComponent, AddCategoryFormComponent, CommonModule],
+  imports: [CategoryCardComponent, AddCategoryFormComponent, CommonModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  
-  title = 'Noter';
-  showAddCategoryForm: boolean = false;
-  viewCategories: Category[] = [];
-  menuOpen: boolean = false;
+  @ViewChild('searchOnEsc') searchOnEsc!: ElementRef<HTMLInputElement>;
 
-  
+  showAddCategoryForm: boolean = false;
+  viewCategories: Category[] = [];  // Categories currently displayed in UI
+  allCategories: Category[] = [];   // All categories fetched from DB
+  allNotes: Note[] = [];            // All notes fetched from DB
+  menuOpen: boolean = false;
+  searchOpen: boolean = false;
+  searchText: string = '';
+
   dbService = inject(NoterDbService);
-  
+
   ngOnInit(): void {
-    this.fetchCategpries();
+    this.fetchCategoriesAndNotes();
   }
-  
+
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
 
-  async fetchCategpries()
-  {
-    this.viewCategories = await this.dbService.getAllCategoties();
-    // console.log('Fetched categories:', this.viewCategories[0].id);
+  async fetchCategoriesAndNotes() {
+    this.allCategories = await this.dbService.getAllCategoties();
+    this.allNotes = await this.dbService.getAllNotes();
+    this.viewCategories = [...this.allCategories];
   }
 
   addCategory() {
     this.showAddCategoryForm = !this.showAddCategoryForm;
   }
 
-  closeForm(status: boolean) {
-    console.log('Closing form');
+  closeForm(_status: boolean) {
     this.showAddCategoryForm = false;
   }
 
   async handleCategoryAdded(categoryName: string) {
-    var result = await this.dbService.addCategoty(categoryName);
-    if(result)
-    {
-      this.fetchCategpries(); // Refresh categories after adding
-    }
-    else
-    {
+    const result = await this.dbService.addCategoty(categoryName);
+    if (result) {
+      await this.fetchCategoriesAndNotes();
+    } else {
       alert('Failed to add category. Please try again.');
     }
   }
 
-  deleteAll()
-  {
-    var confirmation = prompt('This action cannot be undone. To confirm type "DELETE-ALL" to confirm.');
+  deleteAll() {
+    const confirmation = prompt('This action cannot be undone. To confirm type "DELETE-ALL" to confirm.');
     this.menuOpen = false;
-    if(confirmation === 'DELETE-ALL')
-    {
-      this.dbService.deleteAll()
+    if (confirmation === 'DELETE-ALL') {
+      this.dbService.deleteAll().then(() => this.fetchCategoriesAndNotes());
     }
-    this.fetchCategpries();
   }
 
+  onSearchChange() {
+    const query = this.searchText.trim().toLowerCase();
+    if (!query) {
+      this.viewCategories = [...this.allCategories];
+      return;
+    }
+
+    this.viewCategories = this.allCategories.filter((category) => {
+      const categoryMatches = category.name.toLowerCase().includes(query);
+
+      const categoryNotes = this.allNotes.filter(note => note.categoryId === category.id);
+      const notesMatch = categoryNotes.some(note =>
+        note.title.toLowerCase().includes(query) ||
+        note.content.toLowerCase().includes(query)
+      );
+
+      return categoryMatches || notesMatch;
+    });
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      if (document.activeElement === this.searchOnEsc.nativeElement) {
+        this.searchOpen = false;
+        this.searchText = '';
+        this.viewCategories = [...this.allCategories];
+        this.searchOnEsc.nativeElement.blur();
+      } else {
+        this.searchOpen = true;
+        this.searchOnEsc.nativeElement.focus();
+      }
+    }
+    if (event.key === 'Enter') {
+      this.searchOpen = false;
+      this.searchText = '';
+      this.viewCategories = [...this.allCategories];
+      this.searchOnEsc.nativeElement.blur();
+    }
+  }
 }
