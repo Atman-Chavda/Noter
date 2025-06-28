@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NoteMiniCardComponent } from '../note-mini-card/note-mini-card.component';
 import { AddNoteFormComponent } from '../add-note-form/add-note-form.component';
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,7 @@ export class CategoryCardComponent implements OnChanges {
 
   @Input() categories: Category[] = [];
   @Input() searchText: string = '';
+  @Output() categoreyDeleted = new EventEmitter<string>();
 
   notesMap: { [categoryId: string]: Note[] } = {};
 
@@ -62,6 +63,7 @@ export class CategoryCardComponent implements OnChanges {
         if(success)
         {
           this.categories = this.categories.filter(category => category.id !== categoryId);
+          this.categoreyDeleted.emit(categoryId);
         }
         else
         {

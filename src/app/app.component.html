@@ -50,7 +50,7 @@
 
   <hr />
 
-  <app-category-card [categories]="viewCategories" [searchText]="searchText"></app-category-card>
+  <app-category-card [categories]="viewCategories" [searchText]="searchText" (categoreyDeleted)="handleCategoryDeleted($event)"></app-category-card>
 
   <button
     class="bi bi-patch-plus btn border-bottom-dashed"

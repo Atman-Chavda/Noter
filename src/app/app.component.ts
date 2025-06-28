@@ -104,4 +104,11 @@ export class AppComponent implements OnInit {
       this.searchOnEsc.nativeElement.blur();
     }
   }
+
+  handleCategoryDeleted(deletedCategoryId: string) {
+  // Remove from displayed categories if needed:
+  this.viewCategories = this.viewCategories.filter(c => c.id !== deletedCategoryId);
+  // Remove from search categories:
+  this.allCategories = this.allCategories.filter(c => c.id !== deletedCategoryId);
+}
 }
