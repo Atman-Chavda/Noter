@@ -24,6 +24,11 @@ export class AddNoteFormComponent {
 
   async handleCategoryAdded()
   {
+    if(!this.title || !this.content)
+    {
+      alert('Please fill in all fields before adding a note.');
+      return;
+    }
     var result = await this.dbService.addNote(this.categoryId!, this.title, this.content)
     if(result)
     {
