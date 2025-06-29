@@ -1,59 +1,52 @@
 # Noter
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
+Noter is a note-taking web app that runs locally on your machine. It lets you organize your notes by categories and keeps everything private by avoiding any backend servers or API calls. Your notes stay entirely on your device, giving you complete control and peace of mind.
 
-## Development server
+## How to use Noter using Docker
 
-To start a local development server, run:
+### Step-1: Create Docker Image
+
+This will require you to have Docker Desktop installed on your machine
+
+Run this command in your PowerShell to create the image
+
+```bash
+docker build -t noter .
+```
+### Step-2: Create Docker Container from Image
+
+Run this command in your PowerShell to create a container
+
+```bash
+docker run -p 8080:4200 noter 
+```
+This command will start your application on port 8080
+
+You can use the below command so you don't have to build the image again and again
+
+```bash
+docker run -it -p 4200:4200 -v ${PWD}:/usr/src/app my-angular-app
+```
+This will start your application on port 4200
+
+## How to run Noter if you don't have Docker or don't want to use Docker 
+
+### Step-1: Install all the dependencies
+
+To install all the dependencies, use the command given below
+
+```bash
+npm i
+```
+
+### Step-2: Build and run your application
+
+For this use the command given below.
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Your application should start on port 4200.
 
-## Code scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
