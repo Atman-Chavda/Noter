@@ -99,8 +99,7 @@ export class AppComponent implements OnInit {
     }
     if (event.key === 'Enter') {
       this.searchOpen = false;
-      this.searchText = '';
-      this.viewCategories = [...this.allCategories];
+      // this.viewCategories = [...this.allCategories];
       this.searchOnEsc.nativeElement.blur();
     }
   }
