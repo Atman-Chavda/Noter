@@ -2,7 +2,7 @@
 
 Noter is a note-taking web app that runs locally on your machine. It lets you organize your notes by categories and keeps everything private by avoiding any backend servers or API calls. Your notes stay entirely on your device, giving you complete control and peace of mind.
 
-## How to use Noter using Noter
+## How to use Noter using Docker
 
 ### Step-1: Create Docker Image
 
