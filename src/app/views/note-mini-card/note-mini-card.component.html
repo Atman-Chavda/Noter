@@ -1,11 +1,26 @@
-<div class="note-card mb-2 p-2 border border-secondary rounded" (click)="showNote()">
+<div
+  class="note-card mb-2 p-2 border border-secondary rounded"
+  (click)="showNote()"
+>
   <div class="d-flex justify-content-between align-items-start">
-    <h6 class="mb-1" [innerHTML]="note.title | searchHighlighter: searchText"></h6>
+    <h6
+      class="mb-1"
+      [innerHTML]="note.title | searchHighlighter : searchText"
+    ></h6>
     <!-- <app-priority-badge [priority]="note.priority"></app-priority-badge> -->
   </div>
-  <p class="text-white-50 small" [innerHTML]="(note.content | slice:0:50) + '...' | searchHighlighter: searchText"></p>
+  <p
+    class="text-white-50 small"
+    [innerHTML]="
+      (note.content | slice : 0 : 50) + '...' | searchHighlighter : searchText
+    "
+  ></p>
 </div>
 
 @if (showFullNote) {
-  <app-note-modal (closeform)="closeForm($event)" [note]="note" (noteDeleted)="handleNoteDeleted()"></app-note-modal>
+<app-note-modal
+  (closeform)="closeForm($event)"
+  [note]="note"
+  (noteDeleted)="handleNoteDeleted()"
+></app-note-modal>
 }

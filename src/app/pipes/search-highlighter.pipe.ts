@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   standalone: true,
-  name: 'searchHighlighter'
+  name: 'searchHighlighter',
 })
 export class SearchHighlighterPipe implements PipeTransform {
   transform(value: string, search: string): string {
@@ -12,12 +12,12 @@ export class SearchHighlighterPipe implements PipeTransform {
     const pattern = search
       .replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
       .split(' ')
-      .filter(term => term.length > 0)
+      .filter((term) => term.length > 0)
       .join('|');
 
     const regex = new RegExp(pattern, 'gi');
 
     // Replace matched text with <mark> wrapped text
-    return value.replace(regex, match => `<mark>${match}</mark>`);
+    return value.replace(regex, (match) => `<mark>${match}</mark>`);
   }
 }

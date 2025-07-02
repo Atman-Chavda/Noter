@@ -12,35 +12,31 @@ export class NoterDbService extends Dexie {
 
   constructor() {
     super('NoterDatabase');
-    this.version(1).stores({
-      categories: 'id, name',
+    this.version(2).stores({
+      categories: 'id, name, createdAt',
       notes: 'id, categoryId, title, content, createdAt',
     });
 
     this.categories = this.table('categories');
     this.notes = this.table('notes');
 
-    this.on('populate', async () =>
-    {
+    this.on('populate', async () => {
       const tutorialCategoryId = uuidv4();
-      await this.categories.add(
-        {
-          id: tutorialCategoryId,
-          name: 'Tutorial',
-        }
-      );
+      await this.categories.add({
+        id: tutorialCategoryId,
+        name: 'Tutorial',
+        createdAt: new Date(),
+      });
 
-      await this.notes.add(
-        {
-          id: uuidv4(),
-          categoryId: tutorialCategoryId,
-          title: 'Welcome to Noter',
-          content: 'You can start by adding a new category by pressing the "Add Category" button. and then you can add notes to you category. Its that simple!',
-          createdAt: new Date(),
-        }
-      );
-
-    })
+      await this.notes.add({
+        id: uuidv4(),
+        categoryId: tutorialCategoryId,
+        title: 'Welcome to Noter',
+        content:
+          'You can start by adding a new category by pressing the "Add Category" button. and then you can add notes to you category. Its that simple!',
+        createdAt: new Date(),
+      });
+    });
   }
 
   async addCategoty(name: string) {
@@ -48,6 +44,7 @@ export class NoterDbService extends Dexie {
       const newCategory: Category = {
         id: uuidv4(),
         name: name,
+        createdAt: new Date(),
       };
       await this.categories.add(newCategory);
       return true;
@@ -75,21 +72,18 @@ export class NoterDbService extends Dexie {
   }
 
   async getAllCategoties(): Promise<Category[]> {
-    return await this.categories.toArray();
+    return await this.categories.orderBy('createdAt').toArray();
   }
 
-  async getNotesByCategoryId(categoryId:string): Promise<Note[]>
-  {
+  async getNotesByCategoryId(categoryId: string): Promise<Note[]> {
     return await this.notes.where('categoryId').equals(categoryId).toArray();
   }
 
-  async getAllNotes(): Promise<Note[]>
-  {
+  async getAllNotes(): Promise<Note[]> {
     return await this.notes.toArray();
   }
 
-  async deleteAll(): Promise<boolean>
-  {
+  async deleteAll(): Promise<boolean> {
     try {
       await this.categories.clear();
       await this.notes.clear();
@@ -111,16 +105,14 @@ export class NoterDbService extends Dexie {
     }
   }
 
-  async deleteCategory(catergoryId: string): Promise<boolean>{
-    try{
+  async deleteCategory(catergoryId: string): Promise<boolean> {
+    try {
       await this.notes.where('categoryId').equals(catergoryId).delete();
       await this.categories.delete(catergoryId);
       return true;
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error deleting category:', error);
       return false;
     }
   }
-
 }

@@ -6,11 +6,10 @@ import { NoterDbService } from '../../service/noter-db.service';
   selector: 'app-note-modal',
   imports: [],
   templateUrl: './note-modal.component.html',
-  styleUrl: './note-modal.component.css'
+  styleUrl: './note-modal.component.css',
 })
 export class NoteModalComponent {
-
-  @Input() note:Note | null = null;
+  @Input() note: Note | null = null;
   @Output() closeform = new EventEmitter<boolean>();
   @Output() noteDeleted = new EventEmitter<void>();
 
@@ -20,20 +19,15 @@ export class NoteModalComponent {
     this.closeform.emit(status);
   }
 
-  deleteNote(noteId: string) 
-  {
+  deleteNote(noteId: string) {
     var result = confirm('Are you sure you want to delete this note?');
-    if(result)
-    {
-      this.dbService.deleteNote(noteId).then(success => {
-        if(success)
-        {
+    if (result) {
+      this.dbService.deleteNote(noteId).then((success) => {
+        if (success) {
           // alert('Note deleted successfully.');
           this.noteDeleted.emit();
           this.closeFormHandler();
-        }
-        else
-        {
+        } else {
           // alert('Failed to delete note. Please try again.');
         }
       });

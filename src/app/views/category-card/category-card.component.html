@@ -1,6 +1,6 @@
-<div class="row mt-4">
+<div class="container mt-4">
   <ng-container *ngFor="let category of categories">
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+    <div class="box">
       <div
         class="card bg-black border border-secondary text-white position-relative"
       >
@@ -39,8 +39,6 @@
   </ng-container>
 </div>
 
-<!-- Add your add-note form here if needed -->
-
 @if (showForm) {
 <app-add-note-form
   [categoryId]="categoryId"
@@ -48,3 +46,13 @@
   (closeform)="closeForm($event)"
 ></app-add-note-form>
 }
+
+<!-- 
+
+
+<div class="container">
+  <div class="box">
+    <img src="" alt="">
+    <h2></h2>
+  </div>
+</div> -->

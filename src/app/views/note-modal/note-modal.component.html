@@ -1,8 +1,10 @@
 <!-- Overlay Background -->
-<div class="overlay">
+<div class="overlay" (click)="closeFormHandler(false)">
   <!-- Centered Form -->
-  <div class="modal-form bg-black rounded p-4 rounded-3 border border-secondary text-white">
-    
+  <div
+    class="modal-form bg-black rounded p-4 rounded-3 border border-secondary text-white"
+    (click)="$event.stopPropagation()"
+  >
     <!-- Title Section -->
     <div class="mb-3">
       <div class="fw-bold fs-5">Title:</div>
@@ -26,6 +28,5 @@
         (click)="deleteNote(note!.id)"
       ></button>
     </div>
-
   </div>
 </div>

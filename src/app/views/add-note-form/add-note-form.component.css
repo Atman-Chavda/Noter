@@ -27,14 +27,14 @@
 
 .border-bottom-dashed:hover {
   background-color: white;
-  color: black
+  color: black;
 }
 
-.cancel-btn{
+.cancel-btn {
   border: 1px solid #8a8a8a93;
 }
 
-.cancel-btn:hover{
+.cancel-btn:hover {
   background-color: #8a8a8a93;
 }
 

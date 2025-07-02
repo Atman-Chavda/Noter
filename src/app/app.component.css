@@ -1,20 +1,21 @@
 .border-bottom-dashed {
   border: 1px dashed #dee2e6; /* Light gray, Bootstrap-like */
   color: white;
+  margin-top: 7vh;
 }
 
 .border-bottom-dashed:hover {
   background: white;
-    color: black; /* Change text color on hover */
+  color: black; /* Change text color on hover */
 }
 
-.search{
+.search {
   background-color: #1c1c1c;
   border: 1px solid #555;
   transition: background-color 0.2s ease;
 }
 
-.search::placeholder{
+.search::placeholder {
   color: rgb(100, 100, 100);
 }
 
@@ -26,12 +27,11 @@
   min-width: 180px;
 }
 
-.delete-all{
+.delete-all {
   color: rgb(169, 10, 10);
   font-weight: bold;
 }
-.delete-all:hover
-{
+.delete-all:hover {
   background-color: rgb(126, 0, 0);
   color: white;
 }

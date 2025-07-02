@@ -26,14 +26,14 @@
 }
 
 .border-bottom-dashed:hover {
-  background-color: rgb(164, 164, 164); 
+  background-color: rgb(164, 164, 164);
 }
 
-.cancel-btn{
+.cancel-btn {
   border: 1px solid #8a8a8a93;
 }
 
-.cancel-btn:hover{
+.cancel-btn:hover {
   background: #8a8a8a93;
 }
 
@@ -42,17 +42,15 @@
   opacity: 1; /* Prevents faded look in some browsers */
 }
 
-.bg-class
-{
-    background-color: #1c1c1c;
+.bg-class {
+  background-color: #1c1c1c;
 }
 
-.delete-btn{
+.delete-btn {
   color: rgb(169, 10, 10);
   font-weight: bold;
 }
-.delete-btn:hover
-{
+.delete-btn:hover {
   background-color: rgb(126, 0, 0);
   color: white;
 }

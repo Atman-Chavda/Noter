@@ -2,18 +2,21 @@
   class="container-fluid bg-black text-white py-4 min-vh-100 position-relative"
 >
   <!-- Header row -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <div
+    class="header-row d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3"
+  >
     <!-- Left: Title -->
-    <h3 class="mb-0">My Notes</h3>
+    <h3 class="mb-0 flex-shrink-0">My Notes</h3>
 
     <!-- Middle: Search bar + menu toggle -->
-    <div class="d-flex align-items-center position-relative">
-      <!-- Search Input -->
-      <div class="position-relative">
+    <div
+      class="search-container d-flex align-items-center position-relative flex-grow-1 flex-shrink-1"
+    >
+      <div class="position-relative w-100 justify-content-center">
         <input
           #searchOnEsc
           type="text"
-          class="form-control ps-5 search text-white"
+          class="form-control ps-5 search text-white w-100"
           placeholder="Press esc to start typing"
           [(ngModel)]="searchText"
           (input)="onSearchChange()"
@@ -23,10 +26,11 @@
         ></i>
       </div>
 
-      <!-- Hamburger Icon -->
-      <i class="bi bi-list fs-3 ms-3 cursor-pointer" (click)="toggleMenu()"></i>
+      <i
+        class="bi bi-list fs-3 ms-3 cursor-pointer flex-shrink-0"
+        (click)="toggleMenu()"
+      ></i>
 
-      <!-- Custom Menu -->
       <div
         class="menu-box bg-class p-3 rounded shadow position-absolute"
         *ngIf="menuOpen"
@@ -43,14 +47,21 @@
     </div>
 
     <!-- Right: Add Category -->
-    <button class="btn bi bi-patch-plus btn-light" (click)="addCategory()">
+    <button
+      class="btn bi bi-patch-plus btn-light flex-shrink-0"
+      (click)="addCategory()"
+    >
       Add Category
     </button>
   </div>
 
   <hr />
 
-  <app-category-card [categories]="viewCategories" [searchText]="searchText" (categoreyDeleted)="handleCategoryDeleted($event)"></app-category-card>
+  <app-category-card
+    [categories]="viewCategories"
+    [searchText]="searchText"
+    (categoreyDeleted)="handleCategoryDeleted($event)"
+  ></app-category-card>
 
   <button
     class="bi bi-patch-plus btn border-bottom-dashed"

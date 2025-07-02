@@ -1,4 +1,13 @@
-import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { NoteMiniCardComponent } from '../note-mini-card/note-mini-card.component';
 import { AddNoteFormComponent } from '../add-note-form/add-note-form.component';
 import { CommonModule } from '@angular/common';
@@ -9,12 +18,16 @@ import { SearchHighlighterPipe } from '../../pipes/search-highlighter.pipe';
 @Component({
   selector: 'app-category-card',
   standalone: true,
-  imports: [NoteMiniCardComponent, CommonModule, AddNoteFormComponent, SearchHighlighterPipe],
+  imports: [
+    NoteMiniCardComponent,
+    CommonModule,
+    AddNoteFormComponent,
+    SearchHighlighterPipe,
+  ],
   templateUrl: './category-card.component.html',
-  styleUrl: './category-card.component.css'
+  styleUrl: './category-card.component.css',
 })
 export class CategoryCardComponent implements OnChanges {
-
   showForm: boolean = false;
   categoryId: string | null = null;
   categotyName: string | null = null;
@@ -33,11 +46,13 @@ export class CategoryCardComponent implements OnChanges {
     }
   }
 
-
   async fetchNotes() {
     for (const category of this.categories) {
-    this.notesMap[category.id] = await this.dbService.getNotesByCategoryId(category.id);
-  }}
+      this.notesMap[category.id] = await this.dbService.getNotesByCategoryId(
+        category.id
+      );
+    }
+  }
 
   addNote(id: string, name: string) {
     this.categoryId = id;
@@ -53,24 +68,21 @@ export class CategoryCardComponent implements OnChanges {
     this.fetchNotes();
   }
 
-  deleteCategory(categoryId: string) 
-  {
-    var result = confirm('Are you sure you want to delete this note? This will also delete all notes in this category.');
-    if(result)
-    {
-      this.dbService.deleteCategory(categoryId).then(success =>
-      {
-        if(success)
-        {
-          this.categories = this.categories.filter(category => category.id !== categoryId);
+  deleteCategory(categoryId: string) {
+    var result = confirm(
+      'Are you sure you want to delete this note? This will also delete all notes in this category.'
+    );
+    if (result) {
+      this.dbService.deleteCategory(categoryId).then((success) => {
+        if (success) {
+          this.categories = this.categories.filter(
+            (category) => category.id !== categoryId
+          );
           this.categoreyDeleted.emit(categoryId);
-        }
-        else
-        {
+        } else {
           alert('Error deleting category');
         }
-      })
+      });
     }
   }
-
 }

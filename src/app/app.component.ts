@@ -1,4 +1,11 @@
-import { Component, ElementRef, HostListener, inject, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CategoryCardComponent } from './views/category-card/category-card.component';
 import { AddCategoryFormComponent } from './views/add-category-form/add-category-form.component';
 import { NoterDbService } from './service/noter-db.service';
@@ -8,7 +15,12 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [CategoryCardComponent, AddCategoryFormComponent, CommonModule, FormsModule],
+  imports: [
+    CategoryCardComponent,
+    AddCategoryFormComponent,
+    CommonModule,
+    FormsModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -16,9 +28,9 @@ export class AppComponent implements OnInit {
   @ViewChild('searchOnEsc') searchOnEsc!: ElementRef<HTMLInputElement>;
 
   showAddCategoryForm: boolean = false;
-  viewCategories: Category[] = [];  // Categories currently displayed in UI
-  allCategories: Category[] = [];   // All categories fetched from DB
-  allNotes: Note[] = [];            // All notes fetched from DB
+  viewCategories: Category[] = []; // Categories currently displayed in UI
+  allCategories: Category[] = []; // All categories fetched from DB
+  allNotes: Note[] = []; // All notes fetched from DB
   menuOpen: boolean = false;
   searchOpen: boolean = false;
   searchText: string = '';
@@ -57,7 +69,9 @@ export class AppComponent implements OnInit {
   }
 
   deleteAll() {
-    const confirmation = prompt('This action cannot be undone. To confirm type "DELETE-ALL" to confirm.');
+    const confirmation = prompt(
+      'This action cannot be undone. To confirm type "DELETE-ALL" to confirm.'
+    );
     this.menuOpen = false;
     if (confirmation === 'DELETE-ALL') {
       this.dbService.deleteAll().then(() => this.fetchCategoriesAndNotes());
@@ -74,10 +88,13 @@ export class AppComponent implements OnInit {
     this.viewCategories = this.allCategories.filter((category) => {
       const categoryMatches = category.name.toLowerCase().includes(query);
 
-      const categoryNotes = this.allNotes.filter(note => note.categoryId === category.id);
-      const notesMatch = categoryNotes.some(note =>
-        note.title.toLowerCase().includes(query) ||
-        note.content.toLowerCase().includes(query)
+      const categoryNotes = this.allNotes.filter(
+        (note) => note.categoryId === category.id
+      );
+      const notesMatch = categoryNotes.some(
+        (note) =>
+          note.title.toLowerCase().includes(query) ||
+          note.content.toLowerCase().includes(query)
       );
 
       return categoryMatches || notesMatch;
@@ -105,9 +122,13 @@ export class AppComponent implements OnInit {
   }
 
   handleCategoryDeleted(deletedCategoryId: string) {
-  // Remove from displayed categories if needed:
-  this.viewCategories = this.viewCategories.filter(c => c.id !== deletedCategoryId);
-  // Remove from search categories:
-  this.allCategories = this.allCategories.filter(c => c.id !== deletedCategoryId);
-}
+    // Remove from displayed categories if needed:
+    this.viewCategories = this.viewCategories.filter(
+      (c) => c.id !== deletedCategoryId
+    );
+    // Remove from search categories:
+    this.allCategories = this.allCategories.filter(
+      (c) => c.id !== deletedCategoryId
+    );
+  }
 }

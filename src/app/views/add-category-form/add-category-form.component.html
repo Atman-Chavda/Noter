@@ -1,8 +1,9 @@
-<!-- Overlay Background -->
-<div class="overlay">
+<!-- Overlay Background (backdrop) -->
+<div class="overlay" (click)="closeFormHandler(false)">
   <!-- Centered Form -->
   <div
     class="modal-form bg-black rounded p-4 rounded-3 border border-secondary text-white"
+    (click)="$event.stopPropagation()"
   >
     <div>
       <h5 class="fw-bold mb-4">Add Category</h5>

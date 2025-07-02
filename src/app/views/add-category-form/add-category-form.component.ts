@@ -27,7 +27,7 @@ export class AddCategoryFormComponent {
       this.closeFormHandler(false);
       return;
     }
-    
+
     this.addCategory.emit(trimmed);
     this.categoryName = '';
     this.closeFormHandler(); // just closes form
