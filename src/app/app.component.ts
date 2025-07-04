@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
   @ViewChild('searchOnEsc') searchOnEsc!: ElementRef<HTMLInputElement>;
+  @ViewChild('importFile') importFileRef!: ElementRef<HTMLInputElement>;
 
   showAddCategoryForm: boolean = false;
   viewCategories: Category[] = []; // Categories currently displayed in UI
@@ -130,5 +131,51 @@ export class AppComponent implements OnInit {
     this.allCategories = this.allCategories.filter(
       (c) => c.id !== deletedCategoryId
     );
+  }
+
+  exportData() {
+    this.dbService.exportDatabase().then(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'noter-backup.json'; // file name
+      a.click();
+      URL.revokeObjectURL(url); // cleanup
+    }).catch(error => {
+      console.error('Export failed:', error);
+    });
+  }
+
+  triggerImportFile() {
+    const check = confirm("This will overwrite your current database. Do you want to continue?");
+    if (!check) {
+      return;
+    }
+    this.importFileRef.nativeElement.click();
+  }
+
+  handleImportFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) {
+      console.warn('No file selected');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const fileContent = reader.result as string;
+
+      // Directly import JSON
+      const blob = new Blob([fileContent], { type: 'application/json' });
+      this.dbService.importDatabase(blob).then(() => {
+        alert('Database imported successfully!');
+        window.location.reload(); // reload app to see imported data
+      }).catch(error => {
+        console.error('Import failed:', error);
+        alert('Failed to import data. See console for details.');
+      });
+    };
+    reader.readAsText(file);
   }
 }

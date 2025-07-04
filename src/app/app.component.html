@@ -36,7 +36,22 @@
         *ngIf="menuOpen"
         style="top: 110%; right: 0; z-index: 1051"
       >
-        <button class="btn btn-outline-light w-100 mb-2">Export Data</button>
+        <button class="btn btn-outline-light w-100 mb-2" (click)="exportData()">
+          Export Data
+        </button>
+        <button
+          class="btn btn-outline-light w-100 mb-2"
+          (click)="triggerImportFile()"
+        >
+          Import Data
+        </button>
+        <input
+          type="file"
+          #importFile
+          accept=".json,.enc"
+          style="display: none"
+          (change)="handleImportFile($event)"
+        />
         <button
           class="btn btn-outline-light w-100 delete-all"
           (click)="deleteAll()"

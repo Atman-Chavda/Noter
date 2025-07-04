@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import Dexie, { Table } from 'dexie';
 import { Category, Note } from '../models/interfaces';
 import { v4 as uuidv4 } from 'uuid';
+import 'dexie-export-import';
 
 @Injectable({
   providedIn: 'root',
@@ -113,6 +114,31 @@ export class NoterDbService extends Dexie {
     } catch (error) {
       console.error('Error deleting category:', error);
       return false;
+    }
+  }
+
+  async exportDatabase(): Promise<Blob> {
+    try {
+      const blob = await this.export({ prettyJson: true }); // prettier JSON for readability
+      return blob;
+    } catch (error) {
+      console.error('Failed to export database:', error);
+      throw error;
+    }
+  }
+
+  async importDatabase(blob: Blob): Promise<void> {
+    try {
+      await this.import(blob, {
+        progressCallback: (progress) => {
+          console.log('Import progress:', progress);
+          return true
+        },
+      });
+      console.log('Database imported successfully!');
+    } catch (error) {
+      console.error('Failed to import database:', error);
+      throw error;
     }
   }
 }
