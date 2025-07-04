@@ -1,0 +1,30 @@
+name: Build & Deploy Angular app to Firebase
+
+on:
+  push:
+    branches:
+      - master  # triggers when PRs are merged to master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'  # or your desired Node version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build Angular app
+      run: npm run build -- --prod
+
+    - name: Deploy to Firebase Hosting
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      run: npx firebase deploy --only hosting

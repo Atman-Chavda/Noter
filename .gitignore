@@ -42,5 +42,6 @@ testem.log
 Thumbs.db
 
 # FireBase configs
+.firebase/
 firebase-debug.log
 pglite-debug.log
