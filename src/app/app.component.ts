@@ -69,13 +69,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  deleteAll() {
+  async deleteAll() {
     const confirmation = prompt(
       'This action cannot be undone. To confirm type "DELETE-ALL" to confirm.'
     );
     this.menuOpen = false;
     if (confirmation === 'DELETE-ALL') {
-      this.dbService.deleteAll().then(() => this.fetchCategoriesAndNotes());
+      await this.dbService.deleteAll();
+      await this.fetchCategoriesAndNotes();
     }
   }
 

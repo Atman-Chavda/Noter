@@ -84,17 +84,33 @@ export class NoterDbService extends Dexie {
     return await this.notes.toArray();
   }
 
-  async deleteAll(): Promise<boolean> {
-    try {
-      await this.categories.clear();
-      await this.notes.clear();
-      Dexie.delete('NoterDatabase');
-      return true;
-    } catch (error) {
-      console.error('Error deleting all categories and notes:', error);
-      return false;
-    }
+async deleteAll(): Promise<boolean> {
+  try {
+    await this.categories.clear();
+    await this.notes.clear();
+    await Dexie.delete('NoterDatabase');
+
+    // Recreate the database schema
+    this.close(); // safely close current Dexie connection
+
+    this.version(2).stores({
+      categories: 'id, name, createdAt',
+      notes: 'id, categoryId, title, content, createdAt',
+    });
+
+    this.categories = this.table('categories');
+    this.notes = this.table('notes');
+
+    // Reopen to trigger .on('populate') callback
+    await this.open();
+
+    return true;
+  } catch (error) {
+    console.error('Error deleting and recreating database:', error);
+    return false;
   }
+}
+
 
   async deleteNote(noteId: string): Promise<boolean> {
     try {
@@ -129,6 +145,8 @@ export class NoterDbService extends Dexie {
 
   async importDatabase(blob: Blob): Promise<void> {
     try {
+      this.notes.clear();
+      this.categories.clear();
       await this.import(blob, {
         progressCallback: (progress) => {
           console.log('Import progress:', progress);

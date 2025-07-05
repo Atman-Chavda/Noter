@@ -3,7 +3,7 @@ name: Build & Deploy Angular app to Firebase
 on:
   push:
     branches:
-      - master  # triggers when PRs are merged to master
+      - master
 
 jobs:
   build-and-deploy:
@@ -16,7 +16,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'  # or your desired Node version
+        node-version: '18'
 
     - name: Install dependencies
       run: npm install
@@ -27,7 +27,12 @@ jobs:
     - name: Install Firebase CLI
       run: npm install -g firebase-tools
 
+    - name: Write Firebase service account credentials to file
+      run: |
+        echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/firebase-key.json
+
+    - name: Set up Application Default Credentials
+      run: echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/firebase-key.json" >> $GITHUB_ENV
+
     - name: Deploy to Firebase Hosting
-      env: 
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       run: firebase deploy --only hosting
